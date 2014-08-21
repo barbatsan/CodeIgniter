@@ -603,6 +603,23 @@ class CI_Session extends CI_Driver_Library {
 		// Update expiration list
 		$this->set_userdata(self::EXPIRATION_KEY, $expirations);
 	}
+	
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Removes all session data, but not session
+	 *
+	 * @return	void
+	 */
+	 public function unset_only() {
+	    $user_data = $this->all_userdata();
+
+	    foreach ($user_data as $key => $value) {
+		if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+		    $this->unset_userdata($key);
+		}
+	    }
+	}
 
 }
 
